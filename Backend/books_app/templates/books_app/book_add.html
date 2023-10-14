@@ -1,0 +1,17 @@
+{% extends 'books_app/base.html' %}
+
+{% block title %}
+    Add a new book
+{% endblock %}
+
+{% block body %}
+    <h1>Добавить новую книгу</h1>
+    <div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Добавить</button>
+            <a href="{% url 'books_app:books_list' %}" class="btn btn-primary">Вернуться с списку книг</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'books_app/base.html' %}
+{% load mptt_tags static %}
+
+{% block title %}
+    Книга #{{ book.name }}.
+{% endblock %}
+
+{% block body %}
+    <div>
+        <a href="{% url 'books_app:book_update' pk=book.pk %}" class="btn btn-primary">Редактировать карточку</a>
+        <a href="{% url 'books_app:book_delete' pk=book.pk %}" class="btn btn-primary">Удалить книгу</a>
+        <a href="{% url 'books_app:books_list' %}" class="btn btn-primary">Обратно к списку книг</a>
+    </div>
+
+    <div class="card mb-3">
+	<div class="row">
+		<div class="col-4">
+            {% if images %}
+            {% for image in images %}
+                <div>
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ book.name }}">
+                </div>
+            {% endfor %}
+            {% endif %}
+		</div>
+
+		<div class="col-8">
+			<div class="card-body">
+				<h5>{{ book.name }}</h5>
+				<p class="card-text">{{ book.description }}</p>
+				Написал: {{ book.author }} / <small>{{ book.year }}</small>
+			</div>
+            <div class="rating-buttons">
+                <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="1">Очень плохо</button>
+                <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="2">Плохо</button>
+                <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="3">Средне</button>
+                <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="4">Хорошо</button>
+                <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="5">Отлично</button>
+                <button class="btn btn-sm btn-secondary">Рейтинг книги=</button>
+                <button class="btn btn-sm btn-success rating-sum">{{ book.get_sum_rating }}</button>
+            </div>
+		</div>
+	</div>
+    </div>
+    <div class="card border-0">
+	<div class="card-body">
+		<h5 class="card-title">
+			Комментарии
+		</h5>
+		{% include 'comments_list.html' %}
+	</div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'custom/js/ratings.js' %}"></script>
+{% endblock%}

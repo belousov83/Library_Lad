@@ -1,0 +1,26 @@
+{% extends 'books_app/base.html' %}
+
+{% block title %}
+    Изменение информации
+{% endblock %}
+
+{% block body %}
+    <div class="card mb-3 border-0 nth-shadow">
+    <div class="card-body">
+        <div class="card-title nth-card-title">
+            <h4>Изменить данные по книге: {{ book.name }}</h4>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+                {% for formset in inlines %}
+                    <table>{{ formset }}</table>
+                {% endfor %}
+            <div class="d-grid gap-2 d-md-block mt-2">
+                <button type="submit" class="btn btn-dark">Сохранить изменения</button>
+                <a href="{% url 'books_app:book_details' pk=object.pk %}" class="btn btn-primary">Вернуться к книге</a>
+            </div>
+        </form>
+    </div>
+    </div>
+{% endblock %}

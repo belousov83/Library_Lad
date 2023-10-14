@@ -1,0 +1,36 @@
+{% extends 'books_app/base.html' %}
+{% load static %}
+
+{% block body %}
+    <div>
+       <a href="{% url 'books_app:book_add' %}" class="btn btn-primary">Добавить новую книгу</a>
+    </div>
+    <h1>Книги:</h1>
+    {% if object_list %}
+        <div>
+            {% for book in object_list.all %}
+                <div>
+                    <p><a href="{% url 'books_app:book_details' pk=book.pk %}" class="btn btn-secondary">Название: {{ book.name }}</a></p>
+                    <p>Автор: {{ book.author }}</p>
+                    <p>Дата издания: {{ book.year }}</p>
+                    <div class="rating-buttons">
+                        <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="1">Очень плохо</button>
+                        <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="2">Плохо</button>
+                        <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="3">Средне</button>
+                        <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="4">Хорошо</button>
+                        <button class="btn btn-sm btn-secondary" data-book="{{ book.id }}" data-rate="5">Отлично</button>
+                        <button class="btn btn-sm btn-secondary">Рейтинг книги=</button>
+                        <button class="btn btn-sm btn-success rating-sum">{{ book.get_sum_rating }}</button>
+                    </div>
+                    <p>-------------------------------</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h3>Нет книг в библиотеке.</h3>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'custom/js/ratings.js' %}"></script>
+{% endblock%}

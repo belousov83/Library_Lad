@@ -1,0 +1,18 @@
+{% extends 'books_app/base.html' %}
+
+{% block title %}
+    Update Visitor info
+{% endblock %}
+
+{% block body %}
+    <h1>Обновить личные данные {{ visitor.user }}</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+            <a href="{% url 'books_app:books_list' %}" class="btn btn-primary">Вернуться к списку книг</a>
+            <a href="{% url 'books_app:visitor_details' pk=object.pk %}" class="btn btn-primary">Вернуться в личный кабинет</a>
+        </form>
+    </div>
+{% endblock %}

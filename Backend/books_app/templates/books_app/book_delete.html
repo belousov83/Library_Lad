@@ -1,0 +1,21 @@
+{% extends 'books_app/base.html' %}
+
+{% block body %}
+<div class="card mb-3 border-0 nth-shadow">
+    <div class="card-body">
+        <div class="card-title nth-card-title">
+            <h4>Удаление книги</h4>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-info-circle"></i> Вы собираетесь удалить книгу: <strong>{{ book.name }}</strong>, вы подтверждаете свое действие?
+            </div>
+            <div class="d-grid gap-2 d-md-block mt-2">
+                <button type="submit" class="btn btn-dark">Удалить книгу</button>
+                <a href="{% url 'books_app:book_details' pk=object.pk %}" class="btn btn-primary">Отменить удаление</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

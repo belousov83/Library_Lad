@@ -1,0 +1,14 @@
+{% extends 'books_app/base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Login</button>
+    </form>
+
+{% endblock %}

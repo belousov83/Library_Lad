@@ -1,0 +1,21 @@
+{% extends 'books_app/base.html' %}
+
+{% block title %}
+    Visitor info
+{% endblock %}
+
+{% block body %}
+    <h1>Личный кабинет - {{ visitor.user }}:</h1>
+    {% if visitor.user.is_authenticated %}
+        <h2>Детали:</h2>
+        <p>Имя: {{ visitor.name }}</p>
+        <p>Фамилия: {{ visitor.surname }}</p>
+        <p>О себе: {{ visitor.bio }}</p>
+        <div>
+        <a href="{% url 'books_app:visitor_update' pk=visitor.pk %}" class="btn btn-primary">Обновить личную информацию</a>
+        <a href="{% url 'books_app:books_list' %}" class="btn btn-primary">Вернуться к списку книг</a>
+        </div>
+    {% else %}
+        <h2>User is anonymous</h2>
+    {% endif %}
+{% endblock %}

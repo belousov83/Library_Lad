@@ -1,0 +1,40 @@
+<header>
+    <div class="px-3 py-2 text-bg-dark">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+            <li>
+              <a href="{% url 'books_app:books_list' %}" class="nav-link text-white">
+                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"></use></svg>
+                Список книг
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="px-3 py-2 border-bottom mb-3">
+      <div class="container d-flex flex-wrap justify-content-center">
+        <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto" role="search" method="get" action="{% url 'books_app:search' %}">
+            <input type="search" class="form-control" placeholder="Search..." aria-label="Search" name='do' autocomplete="off" id="search">
+        </form>
+        {% if user.is_superuser %}
+            <h3>Вы - Администратор</h3>
+            <a href="{% url 'books_app:logout' %}" type="button" class="btn btn-primary">Деавторизация</a>
+        {% elif request.user.is_authenticated %}
+            <a href="{% url 'books_app:visitor_details' pk=user.visitor.pk %}" type="button" class="btn btn-secondary me-2">Имя: {% firstof user.visitor.name user.username %}</a>
+            <a href="{% url 'books_app:logout' %}" type="button" class="btn btn-primary">Деавторизация</a>
+        {% else %}
+            <div class="text-end">
+                <a href="{% url 'books_app:login' %}" type="button" class="btn btn-light text-dark me-2">Авторизация</a>
+                <a href="{% url 'books_app:register' %}" type="button" class="btn btn-primary">Регистрация</a>
+            </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </header>

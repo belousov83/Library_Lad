@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>
+        {{ title }}
+        {% block title %}
+
+        {% endblock %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    {% include 'header.html' %}
+    <div class="row">
+        <div class="col-8">
+        {% block body %}
+
+        {% endblock %}
+        {% include 'pagination.html' %}
+        </div>
+    </div>
+</div>
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'custom/js/backend.js' %}"></script>
+{% block script %}{% endblock %}
+</body>
+</html>
